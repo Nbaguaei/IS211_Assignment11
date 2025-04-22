@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+
+    <h2>Current Tasks</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Email</th>
+                <th>Priority</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for todo in todos %}
+            <tr>
+                <td>{{ todo.task }}</td>
+                <td>{{ todo.email }}</td>
+                <td>{{ todo.priority }}</td>
+                <td>
+                    <form action="/delete/{{ loop.index0 }}" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Add New Task</h2>
+    <form action="/submit" method="POST">
+        <div>
+            <label for="task">Task:</label>
+            <input type="text" id="task" name="task" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority" required>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <button type="submit">Add To Do Item</button>
+        <button type="submit" name="save" value="save">Save</button>
+    </form>
+
+    <h2>Clear List</h2>
+    <form action="/clear" method="POST">
+        <button type="submit">Clear</button>
+    </form>
+</body>
+</html>
